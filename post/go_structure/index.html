@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet", type="text/css", href="/css/style.css">
+    
+    
+    <title>piokozi&#39;s | Using Go Modules To Structure Your Projects</title>
+</head>
+
+    <body><header class="header">
+    <a href="/post">posts</a>
+    <a href="/">home</a>
+</header>
+<div id="content">
+<h1>Using Go Modules To Structure Your Projects</h1>
+<p>Go modules were introduced a long time ago in Go. However I still found a hard
+time getting into writing using Go modules, not knowing how to structure my
+projects and then call those modules I wrote.</p>
+<p>Turns out its dead simple, but maybe this will be a useful learning source or
+reference.</p>
+<h2 id="generic-structure">Generic Structure</h2>
+<p>From what I&rsquo;ve seen, Go projects often use <code>/pkg</code> to write packages written for
+the project - packages in here should normally be usable outside of the project,
+however, if they are not then <code>/internal</code> is what I use instead.</p>
+<p>The source for the binaries normally is put in <code>/cmd</code>.</p>
+<p>Tests might be written next to the code which they are testing, however
+sometimes it may make more sense to use a <code>/test</code>.</p>
+<p><a href="https://github.com/golang-standards/project-layout">This Github repository</a>
+contains many more examples of what to usually put where.</p>
+<p>Note, it is entirely up to you if you want to follow this or not. For many small
+projects it is enough to just put everything in the root directory. Go will
+often require you to make different directories however, so having structure may
+be useful for many projects, as well as later making it clearer what you
+intended for different parts to mean.</p>
+<h2 id="quick-example-structure">Quick Example Structure</h2>
+<p>To create the module in the first place, in the project root call <code>go mod init &lt;site&gt;/&lt;name&gt;</code>.</p>
+<p>Here is a small example structure</p>
+<pre><code>.
+├── cmd
+│   └── main.go
+├── go.mod
+├── go.sum
+└── pkg
+    ├── bar
+    │   └── bar.go
+    └── foo
+        └── foo.go
+</code></pre><p>Here I just used <code>go mod init example.com/example</code>, often you may use a Github
+repository instead.</p>
+<p><code>go.mod</code> will show our module name and our project dependencies.</p>
+<pre><code>module example.com/example
+
+go 1.16
+</code></pre><p>Then the main part of the project is <code>/cmd/main.go</code>, which calls the packages
+written in <code>/pkg</code></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;example.com/example/pkg/bar&#34;</span>
+	. <span style="color:#e6db74">&#34;example.com/example/pkg/foo&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">Foo</span>()
+	<span style="color:#a6e22e">bar</span>.<span style="color:#a6e22e">Bar</span>()
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>Here you can see how the local packages are imported, then how their contents is
+called.</p>
+<p>Here we also see a way to import the package <code>foo</code>, prefixing the line in
+<code>imports()</code> with a <code>.</code> so that we do not have to call <code>foo.</code>; instead,  we can
+immediately call the functions in <code>foo</code>.</p>
+<p><code>/pkg/foo/foo.go</code> looks like this:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">foo</span>
+
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+
+<span style="color:#75715e">// Prints &#34;foo!&#34;
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Foo</span>() {
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;foo!&#34;</span>)
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>As <code>Foo()</code> is supposed to be a public function, we <strong>must</strong> start it with a
+capital letter. In modules, Go automatically marks functions which start with a
+capital letter as public and those which do not as private. This is a bit of a
+strange feature, but it is what it is and it works.</p>
+<p>We can also call other packages from inside our own packages, we can see in
+<code>/pkg/bar/bar.go</code></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">bar</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+
+	<span style="color:#e6db74">&#34;example.com/example/pkg/foo&#34;</span>
+)
+
+<span style="color:#75715e">// Prints &#34;bar!&#34; then calls foo.Foo()
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Bar</span>() {
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;bar!&#34;</span>)
+	<span style="color:#a6e22e">foo</span>.<span style="color:#a6e22e">Foo</span>()
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>Be aware that cyclical dependencies are not allowed. For example, if <code>bar</code>
+imports <code>foo</code> and <code>foo</code> imports <code>bar</code> then our project will not compile.</p>
+<h2 id="managing-dependencies">Managing Dependencies</h2>
+<p>If you <em>do</em> use modules as dependencies, then you will also find <code>go mod tidy</code>
+to be a useful command.This will add and remove modules from the <code>go.mod</code> file
+based off of what modules you are using in your source code. It will also
+generate a <code>go.sum</code> which contains the modules you have imported and their
+cryptographic hashes/checksums.</p>
+<p>Another useful command could be <code>go mod vendor</code> if you want the source of the
+modules you import to be accessible from inside your own project.</p>
+<p>If you require your dependencies at a certain version, you can use <code>@</code> in your
+<code>go get</code> command, i.e. <code>go get github.com/somebody/module@&lt;commit-or-tag&gt;</code>. This
+will also update the <code>go.mod</code> file. As you may have guessed, you can manage the
+version of your own project using git tags as well.</p>
+
+
+        </div><footer class="footer">
+    Unless otherwise noted, the content of this site is licensed under
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+    <br></br>
+    © 2021 Piotr Kozicki | Powered by
+    <a href="https://gohugo.io">Hugo</a>
+    using the
+    <a href="https://github.com/piokozi/simple-gruv-hugo">simple-gruv</a> theme
+</footer>
+</body>
+</html>

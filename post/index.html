@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet", type="text/css", href="/css/style.css">
+    
+    
+    <title>piokozi&#39;s | Posts</title>
+</head>
+
+    <body><header class="header">
+    <a href="/post">posts</a>
+    <a href="/">home</a>
+</header>
+<div id="content">
+
+    <p>
+    <h3><a class="title", href="/post/introductory_python_oop/">Introduction to OOP in Python</a></h3>
+    <a class="summary", href="/post/introductory_python_oop/"><p>This serves only as an introduction to basic parts of OOP in Python 3.
+Defining a class We can define a class using the class keyword. We can give this class some variables and methods.
+1 2 3 4 5 6 7 8 9  #!/usr/bin/env python class Foo: bar = &#34;hello world&#34; def print_var(self): print(self.bar) f = Foo() f.print_var()   hello world Notice here, that print_var takes self as a parameter, however we do not have to pass it as an argument.</p></a>
+    </p>
+    <hr color="#a89984">
+
+    <p>
+    <h3><a class="title", href="/post/go_structure/">Using Go Modules To Structure Your Projects</a></h3>
+    <a class="summary", href="/post/go_structure/"><p>Go modules were introduced a long time ago in Go. However I still found a hard time getting into writing using Go modules, not knowing how to structure my projects and then call those modules I wrote.
+Turns out its dead simple, but maybe this will be a useful learning source or reference.
+Generic Structure From what I&rsquo;ve seen, Go projects often use /pkg to write packages written for the project - packages in here should normally be usable outside of the project, however, if they are not then /internal is what I use instead.</p></a>
+    </p>
+    <hr color="#a89984">
+
+
+        </div><footer class="footer">
+    Unless otherwise noted, the content of this site is licensed under
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+    <br></br>
+    © 2021 Piotr Kozicki | Powered by
+    <a href="https://gohugo.io">Hugo</a>
+    using the
+    <a href="https://github.com/piokozi/simple-gruv-hugo">simple-gruv</a> theme
+</footer>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go on piokozi&#39;s</title>
+    <link>http://example.org/tags/go/</link>
+    <description>Recent content in Go on piokozi&#39;s</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Tue, 06 Apr 2021 18:59:05 +0100</lastBuildDate><atom:link href="http://example.org/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Using Go Modules To Structure Your Projects</title>
+      <link>http://example.org/post/go_structure/</link>
+      <pubDate>Tue, 06 Apr 2021 18:59:05 +0100</pubDate>
+      
+      <guid>http://example.org/post/go_structure/</guid>
+      <description>Go modules were introduced a long time ago in Go. However I still found a hard time getting into writing using Go modules, not knowing how to structure my projects and then call those modules I wrote.
+Turns out its dead simple, but maybe this will be a useful learning source or reference.
+Generic Structure From what I&amp;rsquo;ve seen, Go projects often use /pkg to write packages written for the project - packages in here should normally be usable outside of the project, however, if they are not then /internal is what I use instead.</description>
+    </item>
+    
+  </channel>
+</rss>

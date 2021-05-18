@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet", type="text/css", href="/css/style.css">
+    
+    
+    <title>piokozi&#39;s | Introduction to OOP in Python</title>
+</head>
+
+    <body><header class="header">
+    <a href="/post">posts</a>
+    <a href="/">home</a>
+</header>
+<div id="content">
+<h1>Introduction to OOP in Python</h1>
+<p>This serves only as an introduction to basic parts of OOP in Python 3.</p>
+<h2 id="defining-a-class">Defining a class</h2>
+<p>We can define a class using the <code>class</code> keyword. We can give this class some
+variables and methods.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#!/usr/bin/env python</span>
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span>:
+    bar <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hello world&#34;</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">print_var</span>(self):
+        <span style="color:#66d9ef">print</span>(self<span style="color:#f92672">.</span>bar)
+
+f <span style="color:#f92672">=</span> Foo()
+f<span style="color:#f92672">.</span>print_var()
+</code></pre></td></tr></table>
+</div>
+</div><pre><code>hello world
+</code></pre><p>Notice here, that <code>print_var</code> takes <code>self</code> as a parameter, however we do not
+have to pass it as an argument. Notice also, that when we call <code>bar</code> <em>inside</em> of
+any method in <code>Foo</code>, we must prepend it with <code>self.</code>.</p>
+<h3 id="constructor-method">Constructor Method</h3>
+<p>We might want to pass some arguments to the class when defining an instance of
+it. For this, we need a constructor method. Python uses a method called
+<code>__init__</code> to allow this.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#!/usr/bin/env python</span>
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span>:
+    <span style="color:#66d9ef">def</span> __init__(self, val):
+        self<span style="color:#f92672">.</span>bar <span style="color:#f92672">=</span> val
+
+f <span style="color:#f92672">=</span> Foo(<span style="color:#e6db74">&#34;foobar!&#34;</span>)
+<span style="color:#66d9ef">print</span>(f<span style="color:#f92672">.</span>bar)
+</code></pre></td></tr></table>
+</div>
+</div><pre><code>foobar!
+</code></pre><p>Notice that here we have passed the value <code>&quot;foobar!&quot;</code> as an argument, which is
+then passed into the class variable <code>bar</code>. We can also access this variable
+outside of the class, as we do in <code>f.bar</code>.</p>
+<h3 id="public-and-private">Public and Private</h3>
+<p>Unfortunately Python has no real notion of public or private methods/variables,
+however by convention anything beginning with an underscore is considered to be
+private, however it can also just mean what is being done shouldn&rsquo;t affect any
+of the children of a class. <a href="https://www.youtube.com/watch?v=HTLu2DFOdTg&amp;t=1988s">Raymond Hettinger has a much better explanation of
+this</a>, which you should
+watch if you are interested.</p>
+<h2 id="inheritance">Inheritance</h2>
+<p>A class can inherit all the methods and variables of another class, here is a
+basic example.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#!/usr/bin/env python</span>
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span>:
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">say_hello</span>(self):
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;hello world!&#34;</span>)
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Bar</span>(Foo):
+    <span style="color:#66d9ef">pass</span>
+
+b <span style="color:#f92672">=</span> Bar()
+b<span style="color:#f92672">.</span>say_hello()
+</code></pre></td></tr></table>
+</div>
+</div><pre><code>hello world!
+</code></pre><p>The line <code>class Bar(Foo)</code> means that <code>Bar</code> is inheriting from <code>Foo</code>. Notice
+this, we haven&rsquo;t defined any <code>say_hello</code> method for <code>Bar</code>, however as we have
+done so for <code>Foo</code> and <code>Bar</code> inherits from <code>Foo</code>, the method exists and works.</p>
+<h2 id="polymorphism">Polymorphism</h2>
+<p>Very generally, this means we can overwrite something we made in a superclass
+(parent class).</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#!/usr/bin/env python</span>
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span>:
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">say_hello</span>(self):
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;hello world!&#34;</span>)
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Bar</span>(Foo):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">say_hello</span>(self):
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Lorem Ipsum...&#34;</span>)
+
+f <span style="color:#f92672">=</span> Foo()
+f<span style="color:#f92672">.</span>say_hello()
+b <span style="color:#f92672">=</span> Bar()
+b<span style="color:#f92672">.</span>say_hello()
+</code></pre></td></tr></table>
+</div>
+</div><pre><code>hello world!
+Lorem Ipsum...
+</code></pre><p>Notice that although <code>Bar</code> inherits from <code>Foo</code>, the method of the same name does
+something different.</p>
+<h2 id="magic-methods">Magic Methods</h2>
+<p>In python, there are methods which begin and end with two underscores (called a
+dunder); these are called &ldquo;magic methods&rdquo; and are not supposed to be called by
+the programmer. We have already seen an example of this with the <code>__init__</code>
+method! Notice that we did not have to call <code>__init__</code> to make it run, rather it
+ran when we defined the class. Generally speaking, they define how common
+interactions with the class should take place.</p>
+<p>I don&rsquo;t intend to go in depth of what magic methods exist, only that you can
+define your own. If you want to go more in-depth into magic methods, I recommend
+looking at the <a href="https://docs.python.org/3/reference/datamodel.html#basic-customization">relevant python
+documentation</a>.</p>
+
+
+        </div><footer class="footer">
+    Unless otherwise noted, the content of this site is licensed under
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+    <br></br>
+    © 2021 Piotr Kozicki | Powered by
+    <a href="https://gohugo.io">Hugo</a>
+    using the
+    <a href="https://github.com/piokozi/simple-gruv-hugo">simple-gruv</a> theme
+</footer>
+</body>
+</html>

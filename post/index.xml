@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on piokozi&#39;s</title>
+    <link>http://example.org/post/</link>
+    <description>Recent content in Posts on piokozi&#39;s</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Tue, 27 Apr 2021 10:34:35 +0100</lastBuildDate><atom:link href="http://example.org/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Introduction to OOP in Python</title>
+      <link>http://example.org/post/introductory_python_oop/</link>
+      <pubDate>Tue, 27 Apr 2021 10:34:35 +0100</pubDate>
+      
+      <guid>http://example.org/post/introductory_python_oop/</guid>
+      <description>This serves only as an introduction to basic parts of OOP in Python 3.
+Defining a class We can define a class using the class keyword. We can give this class some variables and methods.
+1 2 3 4 5 6 7 8 9  #!/usr/bin/env python class Foo: bar = &amp;#34;hello world&amp;#34; def print_var(self): print(self.bar) f = Foo() f.print_var()   hello world Notice here, that print_var takes self as a parameter, however we do not have to pass it as an argument.</description>
+    </item>
+    
+    <item>
+      <title>Using Go Modules To Structure Your Projects</title>
+      <link>http://example.org/post/go_structure/</link>
+      <pubDate>Tue, 06 Apr 2021 18:59:05 +0100</pubDate>
+      
+      <guid>http://example.org/post/go_structure/</guid>
+      <description>Go modules were introduced a long time ago in Go. However I still found a hard time getting into writing using Go modules, not knowing how to structure my projects and then call those modules I wrote.
+Turns out its dead simple, but maybe this will be a useful learning source or reference.
+Generic Structure From what I&amp;rsquo;ve seen, Go projects often use /pkg to write packages written for the project - packages in here should normally be usable outside of the project, however, if they are not then /internal is what I use instead.</description>
+    </item>
+    
+  </channel>
+</rss>

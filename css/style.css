@@ -1,0 +1,27 @@
+body {
+    background-color: #1d2021;
+    color: #ebddb2;
+    font-size: 125%;
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+a:link {
+    color: #458488;
+}
+
+a:visited {
+    color: #b16286;
+}
+
+.header {
+    background-color: #282828;
+    width: 100%;
+}
+
+.footer {
+    background-color: #282828;
+    width: 100%;
+}
