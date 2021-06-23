@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet", type="text/css", href="/css/style.css">
+    
+    
+    <title>piokozi&#39;s | The Master Theorem</title>
+</head>
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$','$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+    }
+  };
+
+  window.addEventListener('load', (event) => {
+      document.querySelectorAll("mjx-container").forEach(function(x){
+        x.parentElement.classList += 'has-jax'})
+    });
+
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <body><header class="header">
+    <a href="/post">posts</a>
+    <a href="/">home</a>
+</header>
+<div id="content">
+<h1>The Master Theorem</h1>
+<p>The Master Theorem is a common and important tool, used in the asymptotic analysis of
+algorithms: particularly recursive, divide-and-conquer algorithms, common examples of
+which include Binary Search, Merge Sort and Quick Sort.</p>
+<h2 id="definition">Definition</h2>
+<p>Where $T(n)$ is the running time of an algorithm for an input size $n$, we define the
+upper bound with:</p>
+<p>$$ T(n) \leq c \quad \forall \quad \text{sufficiently small $n$} $$
+otherwise,
+$$ T(n) \leq a T\left(\frac{n}{b}\right) + O(n^{d}) $$
+where:</p>
+<ul>
+<li>$a$ is the number of times the algorithm is recursively called per (non-final) call.</li>
+<li>$b$ is the factor by which the problem size decreases per recursive call.</li>
+<li>$c$ is a constant for the running time of the base case. It is not used in the theorem.</li>
+<li>$d$ is the power of the running time of the &ldquo;main part&rdquo; of the algorithm. What is meant
+by this will be made clear in the examples.</li>
+</ul>
+<p>Once we have these values defined, the master theorem is simply that the running time of
+the algorithm is:</p>
+<p>$$
+T(n) \leq
+\begin{cases}
+O(n^d \log n),      &amp; \text{if } a = b^d \newline
+O(n^d),             &amp; \text{if } a &lt; b^d \newline
+O(n^{\log_b(a)}),   &amp; \text{if } a &gt; b^d
+\end{cases}
+$$</p>
+<h2 id="examples">Examples</h2>
+<h3 id="binary-search">Binary Search</h3>
+<p>The Binary Search algorithm is supplied a sorted array of length $n$, compares the middle
+element to the one it is searching for, then based off those makes a recursive call on
+either the left or right half of the array, until the element it is searching for is
+found, or the size of the array is one and the element is not present.</p>
+<p>The below pseudocode is not complete, however it should provide an idea of how Binary
+Search works, if you are not already familiar with it.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">BinarySearch</span>(int array[N] A, int target):
+    <span style="color:#66d9ef">if</span> array[N<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>] <span style="color:#f92672">==</span> target:
+        <span style="color:#66d9ef">return</span> True
+    left <span style="color:#f92672">=</span> left half of A
+    right <span style="color:#f92672">=</span> right half of A
+    <span style="color:#66d9ef">if</span> array[N<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>] <span style="color:#f92672">&gt;</span> target:
+        <span style="color:#66d9ef">return</span> BinarySearch(left, target)
+    <span style="color:#66d9ef">if</span> array[N<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>] <span style="color:#f92672">&lt;</span> target:
+        <span style="color:#66d9ef">return</span> BinarySearch(right, target)
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>We see that <code>BinarySearch</code> only calls itself once - there are two possible places, however
+in one call, only one of them can be called: this means $a = 1$.</li>
+<li>As recursive calls only look at one half of the given array, we see that $b = 2$.</li>
+<li>The work done by the algorithm <em>not</em> recursively is just a comparison, which runs in
+constant time, so $d = 0$.</li>
+</ul>
+<p>$b^d = 1 = a$, so we refer to the first case, and find that the running time of binary
+search is $O(\log n)$, which matches what we already know about Binary Search.</p>
+<h3 id="merge-sort">Merge Sort</h3>
+<p>The Merge Sort algorithm is supplied an unsorted array of length $n$, then recursively
+sorts sub-arrays, then merges them into larger arrays. If you haven&rsquo;t encountered this
+algorithm before, this concept may take a little while to get your head around: below is
+some pseudocode that may help.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">MergeSort</span>(int array[N] A):
+    <span style="color:#66d9ef">if</span> N <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
+        <span style="color:#66d9ef">return</span> A
+    sorted_left <span style="color:#f92672">=</span> MergeSort(left half of A)
+    sorted_right <span style="color:#f92672">=</span> MergeSort(right half of A)
+    i, j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+    sorted_array <span style="color:#f92672">=</span> []
+    <span style="color:#66d9ef">while</span> True:
+        <span style="color:#66d9ef">if</span> i <span style="color:#f92672">==</span> len(sorted_left):
+            sorted_array<span style="color:#f92672">.</span>append(rest of sorted_right)
+            <span style="color:#66d9ef">break</span>
+        <span style="color:#66d9ef">if</span> j <span style="color:#f92672">==</span> len(sorted_right):
+            sorted_array<span style="color:#f92672">.</span>append(rest of sorted_left)
+            <span style="color:#66d9ef">break</span>
+        <span style="color:#66d9ef">if</span> sorted_left[i] <span style="color:#f92672">&lt;</span> sorted_right[j]:
+            sorted_array<span style="color:#f92672">.</span>append(sorted_left[i])
+            i<span style="color:#f92672">++</span>
+        <span style="color:#66d9ef">if</span> sorted_right[j] <span style="color:#f92672">&lt;</span> sorted_left[i]:
+            sorted_array<span style="color:#f92672">.</span>append(sorted_right[j])
+            j<span style="color:#f92672">++</span>
+    <span style="color:#66d9ef">return</span> sorted_array
+</code></pre></td></tr></table>
+</div>
+</div><p>The part that is done recursively, is obtaining the sorted left and right halves. What the
+algorithm does not do recursively however is merge the two halves to make one larger
+sorted array.</p>
+<ul>
+<li>Recursively, we make 2 calls, for the sorted left and right halves, so $a = 2$.</li>
+<li>Each recursive call receives a problem of half the size, so $b = 2$.</li>
+<li>The running time of the merge at the end of the call is $O(n)$, so $d = 1$.</li>
+</ul>
+<p>$b^d = 2 = a$, so we use the first case again: the running time of Merge Sort is $O(n \log
+n)$, which matches what we should know.</p>
+<p>Quick Sort is a slightly interesting case as its worst case scenario is actually $O(n^2)$
+(think about going through it on a sorted array). However, assuming an optimal quicksort -
+meaning it always takes the median element - you should now be able to prove that it has
+$O(n \log n)$ performance.</p>
+<h2 id="proof">&ldquo;Proof&rdquo;</h2>
+<p>I call this a &ldquo;proof&rdquo;, because really we only want to build some intuition about the
+working of the master theorem rather than to build a formal proof.</p>
+<p>There are 3 cases to consider, which we will try to cover one-by-one:</p>
+<ul>
+<li>The case where all the nodes have equal work to do.</li>
+<li>The case where child nodes have less work to do.</li>
+<li>The case where child nodes have more work to do.</li>
+</ul>
+<p>When all the nodes have equal work to do, we mean that the amount of work is the same at
+every recursion level. The amount of work per level is $n^d$ and there are $\log n$
+levels, so we can intuitively say that in this case there is a total of $O(n^d \log n)$
+work being done.</p>
+<p>When the child nodes have less work to do, we can expect that most of the work is being
+done at the top of the recursion tree. This means that the most significant amount of work
+is that which is done at the root, not recursively: this means an $O(n^d)$ complexity.</p>
+<p>Conversely, when the child nodes have more work to do, we can expect that most of the work
+is being pushed onto the leaf nodes. However, at the leaf nodes, we are at the base case,
+so the complexity for each individual one is in constant time: this means the overall
+complexity is just the number of leaves: $O(\text{no. leaves})$. So what&rsquo;s the equation
+for the number of leaves? The equation for the number of leaves is the number of sub-calls
+per sub-call (i.e. the rate of proliferation) to the power of the number of levels:
+$a^{\log_b(n)}$. As seen below, this is the same as $n^{\log_b(a)}$.</p>
+<p>Using the $\log(x^w) = w \log x$ rule of logarithms:</p>
+<p>$$
+\log_b(n) \log_b(a) = \log_b(a) \log_b(n)
+\implies
+a^{\log_b(n)} = n^{\log_b(a)}
+$$</p>
+
+
+        </div><footer class="footer">
+    Unless otherwise noted, the content of this site is licensed under
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+    <br></br>
+    © 2021 Piotr Kozicki | Powered by
+    <a href="https://gohugo.io">Hugo</a>
+    using the
+    <a href="https://github.com/piokozi/simple-gruv-hugo">simple-gruv</a> theme
+</footer>
+</body>
+</html>

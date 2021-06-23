@@ -6,7 +6,18 @@
     <description>Recent content in Posts on piokozi&#39;s</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Tue, 27 Apr 2021 10:34:35 +0100</lastBuildDate><atom:link href="http://example.org/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 23 Jun 2021 21:33:56 +0100</lastBuildDate><atom:link href="http://example.org/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The Master Theorem</title>
+      <link>http://example.org/post/master_theorem/</link>
+      <pubDate>Wed, 23 Jun 2021 21:33:56 +0100</pubDate>
+      
+      <guid>http://example.org/post/master_theorem/</guid>
+      <description>The Master Theorem is a common and important tool, used in the asymptotic analysis of algorithms: particularly recursive, divide-and-conquer algorithms, common examples of which include Binary Search, Merge Sort and Quick Sort.
+Definition Where $T(n)$ is the running time of an algorithm for an input size $n$, we define the upper bound with:
+$$ T(n) \leq c \quad \forall \quad \text{sufficiently small $n$} $$ otherwise, $$ T(n) \leq a T\left(\frac{n}{b}\right) + O(n^{d}) $$ where:</description>
+    </item>
+    
     <item>
       <title>Introduction to OOP in Python</title>
       <link>http://example.org/post/introductory_python_oop/</link>
