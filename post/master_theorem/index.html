@@ -204,6 +204,54 @@ $$
 $$
 a^{\log_b(n)} = n^{\log_b(a)}
 $$</p>
+<h2 id="formal-proof">Formal Proof</h2>
+<p>Consider this in the form of a recursion tree, the below one should make this easier. Here
+specifically we have the case of $a=2$.</p>
+<p><img src="/recursion_tree.png" alt="recursion tree where a=2"></p>
+<p>There are $log_b n + 1$ levels in the tree, and where $j$ is the level the tree is on,
+each subproblem is of the size $\frac{n}{b^j}$; furthermore, it will take at most
+$c\left(\frac{n}{b^j}\right)^d$ work to solve. There are $a^j$ subproblems on each level,
+so on each level there is a total of
+$a^j \cdot c \cdot \left(\frac{n}{b^j}\right)^d = cn^d\left(\frac{a}{b^d}\right)^j$
+work being done on each level.</p>
+<p>This means that the total amount of work being done is</p>
+<p>$$
+cn^d \sum^{\log_b n}_{j=0} \left(\frac{a}{b^d}\right)^j
+$$</p>
+<p>So now there are 3 cases to consider:</p>
+<ul>
+<li>The case where $a = b^d$</li>
+<li>The case where $a &lt; b^d$</li>
+<li>The case where $a &gt; b^d$</li>
+</ul>
+<p>When $a = b^d$, we know that $\frac{a}{b^d} = 1$, so the amount of work being done is:
+$$
+cn^d \sum^{\log_b n}_{j=0} 1 = cn^d \log_b n \in O(n^d \log n)
+$$</p>
+<p>When $a &lt; b^d$, we know that $0 &lt; \frac{a}{b^d} &lt; 1$, so we know that the sum converges to
+a constant.</p>
+<p>$$
+\sum^{\log_b n}_{j=0} \left(\frac{a}{b^d}\right)^j \leq \sum^{\infty}_{j=0} \left(\frac{a}{b^d}\right)^j = \frac{1}{1 - \frac{a}{b^d}}
+$$</p>
+<p>So the sum for the total work being done is less than or equal to some constant (as $a, b,
+d$ are all constants).</p>
+<p>It follows that in the case $a &lt; b^d$:</p>
+<p>$$
+cn^d \sum^{\log_b n}_{j=0} \left(\frac{a}{b^d}\right)^j = cn^d k \in O(n^d)
+$$</p>
+<p>Where $k$ is a constant $\leq \frac{1}{1 - \frac{a}{b^d}}$.</p>
+<p>The final case to prove is the case where $a &gt; b^d$:</p>
+<p>$$
+\sum^{\log_b n}_{j=0} \left(\frac{a}{b^d}\right)^j = \frac{1 - \left(\frac{a}{b^d}\right)^{\log_b n + 1}}{1 - \frac{a}{b^d}}
+$$</p>
+<p>$a, b, d$ are constants, so we find this is in $O\left(\left(\frac{a}{b^d}\right)^{\log_b n}\right)$.</p>
+<p>We have already established that $a^{\log_b n} = n^{\log_b a}$. We can use the same method
+to show that $b^{d\log_b n} = n^{d\log_b b} = n^d$.</p>
+<p>This means that our total work done in this case is</p>
+<p>$$
+cn^d \sum^{\log_b n}_{j=0} \left(\frac{a}{b^d}\right)^j \in O\left(n^d \cdot \frac{n^{\log_b a}}{n^d}\right) = O(n^{\log_b a})
+$$</p>
+<p>So we have now proven all three cases of the master theorem.</p>
 
 
         </div><footer class="footer">
